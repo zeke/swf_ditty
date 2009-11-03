@@ -5,24 +5,24 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/swf_ditty'
 
-get "/render_swf_plain" do
+get "/swf_plain" do
   content_type "text/plain"
   <<"EOD"
-#{render_swf("swf/foo.swf")}
+#{swf("swf/foo.swf")}
 EOD
 end
 
-get "/render_swf_with_custom_dom_id" do
+get "/swf_with_custom_dom_id" do
   content_type "text/plain"
   <<"EOD"
-#{render_swf("swf/foo.swf", :dom_id => "dombo", :create_dom_container => false)}
+#{swf("swf/foo.swf", :dom_id => "dombo", :create_dom_container => false)}
 EOD
 end
 
-get "/render_swf_with_flashvars" do
+get "/swf_with_flashvars" do
   content_type "text/plain"
   <<"EOD"
-#{render_swf("foo.swf", :height => 50, :flashvars => {:a => 1, :b => 'two'})}
+#{swf("foo.swf", :height => 50, :flashvars => {:a => 1, :b => 'two'})}
 EOD
 end
 

@@ -12,8 +12,8 @@ class TestSwfDitty < Test::Unit::TestCase
     Sinatra::Application
   end
 
-  def test_render_swf_plain
-    get '/render_swf_plain'
+  def test_swf_plain
+    get '/swf_plain'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
 <script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
@@ -21,16 +21,16 @@ class TestSwfDitty < Test::Unit::TestCase
 EOD
   end
 
-  def test_render_swf_with_custom_dom_id
-    get '/render_swf_with_custom_dom_id'
+  def test_swf_with_custom_dom_id
+    get '/swf_with_custom_dom_id'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
 <script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#dombo').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
 EOD
   end
 
-  def test_render_swf_with_flashvars
-    get '/render_swf_with_flashvars'
+  def test_swf_with_flashvars
+    get '/swf_with_flashvars'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
 <script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', flashvars:{a:1, b:'two'}, height:50, name:'foo_swf', swf:'foo.swf', width:'100%', wmode:'opaque'});});</script>

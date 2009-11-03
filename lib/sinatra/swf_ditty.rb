@@ -3,11 +3,21 @@ require 'sinatra/base'
 module Sinatra
   module SwfDitty
         
-    def render_swf(swf, *args)
+    # Outputs javscript to embed your SWF.
+    # The only required argument is the swf_file path, relative to the public directory.
+    # swf_file can also of course be a full URL.
+    # 
+    #  swf 'foo.swf'
+    #  swf 'foo.swf', :height => 50, :flashvars => {:a => 1, :b => 'two'}
+    #
+    # By default, a DOM container is generated, but if you don't want that just pass in your 
+    # custom `dom_id` and set `create_dom_container` to false
+    #  swf 'swf/foo.swf', :dom_id => 'dombo', :create_dom_container => false)
+    def swf(swf_file, *args)
       options = {
-        :swf => swf,
-        :dom_id => filename_to_dom_id(swf),
-        :name => filename_to_dom_id(swf),
+        :swf => swf_file,
+        :dom_id => filename_to_dom_id(swf_file),
+        :name => filename_to_dom_id(swf_file),
         :width => "100%",
         :height => "100%",
         :wmode => "opaque",
@@ -46,7 +56,7 @@ module Sinatra
       result.downcase
     end
 
-    # Convert a hash to a string of k:v pairs, delimited by commas
+    # Convert a hash to a string of key:value pairs, delimited by commas
     # Wrap in quotes unless numeric or flashvars hash
     def hash_to_key_value_string(hash)
       hash.each_pair.map do |k,v|

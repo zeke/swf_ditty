@@ -21,23 +21,32 @@ Drop this line in your app:
 
 == Usage
 
-The following example assumes you're using {haml}[http://haml-lang.com/] and my {ratpack}[http://github.com/zeke/ratpack] helpers.
+The following example assumes you're using {haml}[http://haml-lang.com/] and my {ratpack}[http://github.com/zeke/ratpack] helpers gem 
+(for the `javascript_include_tag` method): 
 
   %html
     %head
-      =javascript_include_tag %w(jquery-1.3.2.min.js jquery.swfobject.1-0-7.min)
+      =javascript_include_tag %w(jquery-1.3.2.min jquery.swfobject.1-0-7.min)
     %body
       = swf 'my_swf.swf'
-      = swf 'subdirectory/of/public/another.swf', :width => 500, :height => 300, :flashvars => {:foo => 'chacha', :bar => 250}
+      = swf 'subdirectory/of/public/another.swf', :width => 500, :height => 300
       = swf 'http://example.com/yet_another.swf', :wmode => 'opaque'
+
+Passing in FlashVars is easy:
+
+  = swf 'swf/foo.swf', :flashvars => {:foo => 'chacha', :bar => 250}
       
+By default, a DOM element is automatically created based on a variation of the swf filename, but you can override it like so:
+
+  = swf 'swf/foo.swf', :dom_id => 'custom_dom_dom_doobie', :create_dom_container => false
+
 See full auto-generated documentation at {rdoc.info/projects/zeke/swf_ditty}[http://rdoc.info/projects/zeke/swf_ditty]
 
 == Colophon
 
 * Thanks to the Sinatra page on {Writing Extensions}[http://www.sinatrarb.com/extensions.html]
-* Tests modified from {http://github.com/wbzyl/sinatra-static-assets/}[wbzyl/sinatra-static-assets]
-* Gem built with {http://github.com/technicalpickles/jeweler/}[Jeweler]
+* Tests modified from {wbzyl/sinatra-static-assets}[http://github.com/wbzyl/sinatra-static-assets]
+* Gem built with {Jeweler}[http://github.com/technicalpickles/jeweler]
 
 == Copyright
 
