@@ -1,17 +1,43 @@
-= swf_ditty
+= SWF Ditty (swiff ditty)
 
-Description goes here.
+A simple and flexible Sinatra helper for embedding SWFs in your views. 
+Requires {jQuery}[http://jquery.com/] and {jQuery SWFObject}[http://jquery.thewikies.com/swfobject/].
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+== Installation
+
+Install {gemcutter}[http://gemcutter.org] if you haven't already:
+
+  sudo gem install gemcutter
+  gem tumble
+
+Install the ratpack gem:
+
+  sudo gem install swf_ditty
+  
+Drop this line in your app:
+
+  gem 'swf_ditty'
+  require 'sinatra/swf_ditty'
+
+== Usage
+
+The following example assumes you're using {haml}[http://haml-lang.com/] and my {ratpack}[http://github.com/zeke/ratpack] helpers.
+
+  %html
+    %head
+      =javascript_include_tag %w(jquery-1.3.2.min.js jquery.swfobject.1-0-7.min)
+    %body
+      = swf 'my_swf.swf'
+      = swf 'subdirectory/of/public/another.swf', :width => 500, :height => 300, :flashvars => {:foo => 'chacha', :bar => 250}
+      = swf 'http://example.com/yet_another.swf', :wmode => 'opaque'
+      
+See full auto-generated documentation at {rdoc.info/projects/zeke/swf_ditty}[http://rdoc.info/projects/zeke/swf_ditty]
+
+== Colophon
+
+* Thanks to the Sinatra page on {Writing Extensions}[http://www.sinatrarb.com/extensions.html]
+* Tests modified from {http://github.com/wbzyl/sinatra-static-assets/}[wbzyl/sinatra-static-assets]
+* Gem built with {http://github.com/technicalpickles/jeweler/}[Jeweler]
 
 == Copyright
 

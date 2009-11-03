@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "swf_ditty"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{A simple and flexible Sinatra helper for embedding SWFs in your views. }
+    gem.description = %Q{A simple and flexible Sinatra helper for embedding SWFs in your views. Depends on jQuery and jQuery SWFObject}
     gem.email = "zeke@sikelianos.com"
     gem.homepage = "http://github.com/zeke/swf_ditty"
     gem.authors = ["Zeke Sikelianos"]

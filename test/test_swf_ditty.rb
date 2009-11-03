@@ -1,7 +1,60 @@
+require 'sinatra_app'
+require 'test/unit'
+require 'rack/test'
 require 'helper'
 
+set :environment, :test
+
 class TestSwfDitty < Test::Unit::TestCase
-  should "probably rename this file and start testing for real" do
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+  include Rack::Test::Methods
+
+  def app
+    Sinatra::Application
   end
+
+  def test_render_swf_plain
+    get '/render_swf_plain'
+    assert last_response.ok?
+    assert_equal last_response.body,  <<EOD
+<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
+<div id='foo_swf'></div>
+EOD
+  end
+
+  def test_render_swf_with_custom_dom_id
+    get '/render_swf_with_custom_dom_id'
+    assert last_response.ok?
+    assert_equal last_response.body,  <<EOD
+<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#dombo').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
+EOD
+  end
+
+  def test_render_swf_with_flashvars
+    get '/render_swf_with_flashvars'
+    assert last_response.ok?
+    assert_equal last_response.body,  <<EOD
+<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', flashvars:{a:1, b:'two'}, height:50, name:'foo_swf', swf:'foo.swf', width:'100%', wmode:'opaque'});});</script>
+<div id='foo_swf'></div>
+EOD
+  end
+
+  def test_filename_to_dom_id
+    get '/filename_to_dom_id'
+    assert last_response.ok?
+    assert_equal last_response.body,  <<EOD
+alpha_swf
+bravo_swf
+charlie_swf
+EOD
+  end
+  
+  def test_hash_to_key_value_string
+    get '/hash_to_key_value_string'
+    assert last_response.ok?
+    assert_equal last_response.body,  <<EOD
+a:1, b:2
+alpha:'male', bravo:'hamster'
+EOD
+  end
+  
 end
