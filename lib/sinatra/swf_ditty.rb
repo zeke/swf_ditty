@@ -59,10 +59,12 @@ module Sinatra
     # Convert a hash to a string of key:value pairs, delimited by commas
     # Wrap in quotes unless numeric or flashvars hash
     def hash_to_key_value_string(hash)
-      hash.each_pair.map do |k,v|
+      pairs = []
+      hash.each_pair do |k,v|
         v = "'#{v}'" unless k.to_s=='flashvars' || !v.to_s.match(/^[0-9]*\.[0-9]+|[0-9]+$/).nil?
-        "#{k}:#{v}"
-      end.sort.join(", ")
+        pairs << "#{k}:#{v}"
+      end
+      pairs.sort.join(", ")
     end
   
     # Sinatra doesn't have this method, but Rails does..
