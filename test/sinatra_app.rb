@@ -22,7 +22,7 @@ end
 get "/swf_with_flashvars" do
   content_type "text/plain"
   <<"EOD"
-#{swf("foo.swf", :height => 50, :flashvars => {:a => 1, :b => 'two'})}
+#{swf("foo.swf", :height => 50, :width => 600, :flashvars => {:a => 1, :b => 'two'})}
 EOD
 end
 

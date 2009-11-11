@@ -16,8 +16,8 @@ class TestSwfDitty < Test::Unit::TestCase
     get '/swf_plain'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
-<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
-<div id='foo_swf'></div>
+<script charset='utf-8' type='text/javascript'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
+<div id='foo_swf' style='width:100%;height:100%'></div>
 EOD
   end
 
@@ -25,7 +25,7 @@ EOD
     get '/swf_with_custom_dom_id'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
-<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#dombo').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
+<script charset='utf-8' type='text/javascript'>$(document).ready(function(){$('#dombo').flash({allowScriptAccess:'sameDomain', height:'100%', name:'foo_swf', swf:'swf/foo.swf', width:'100%', wmode:'opaque'});});</script>
 EOD
   end
 
@@ -33,8 +33,8 @@ EOD
     get '/swf_with_flashvars'
     assert last_response.ok?
     assert_equal last_response.body,  <<EOD
-<script type='text/javascript' charset='utf-8'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', flashvars:{a:1, b:'two'}, height:50, name:'foo_swf', swf:'foo.swf', width:'100%', wmode:'opaque'});});</script>
-<div id='foo_swf'></div>
+<script charset='utf-8' type='text/javascript'>$(document).ready(function(){$('#foo_swf').flash({allowScriptAccess:'sameDomain', flashvars:{a:1, b:'two'}, height:50, name:'foo_swf', swf:'foo.swf', width:600, wmode:'opaque'});});</script>
+<div id='foo_swf' style='width:600px;height:50px'></div>
 EOD
   end
 

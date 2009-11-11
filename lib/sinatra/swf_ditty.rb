@@ -32,7 +32,16 @@ module Sinatra
     
       # Yank create_dom_container option out of the hash, if it exists
       # Create DOM container if option is set to something other than false or nil
-      out << content_tag(:div, "", :id => dom_id) if options.delete(:create_dom_container)
+      if options.delete(:create_dom_container)
+        # Set the div's dimensions right away so the page doesn't jolt into
+        # the proper dimensions when the swf loads.
+        w = options[:width].to_s
+        h = options[:height].to_s
+        w += "px" unless w.include? "%"
+        h += "px" unless h.include? "%"
+        style = "width:#{w};height:#{h}"
+        out << content_tag(:div, "", :id => dom_id, :style => style)
+      end
     
       # Turn flashvars hash into a flashvars-style formatted string
       options[:flashvars] = "{" + hash_to_key_value_string(options[:flashvars]) + "}" if options[:flashvars]
@@ -68,9 +77,10 @@ module Sinatra
     end
   
     # Sinatra doesn't have this method, but Rails does..
+    # options are sorted alphabetically for predicatability
     unless method_defined?(:content_tag)
       def content_tag(name,content,options={})
-        options = options.map{ |k,v| "#{k}='#{v}'" }.join(" ")
+        options = options.map{ |k,v| "#{k}='#{v}'" }.sort.join(" ")
         "<#{name} #{options}>#{content}</#{name}>"
       end
     end
